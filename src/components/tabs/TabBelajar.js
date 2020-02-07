@@ -6,6 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import ListSaham from '../ListSaham';
 import ListArticle from '../ListArticle';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default class TabBelajar extends Component {
   constructor() {
@@ -80,17 +81,22 @@ export default class TabBelajar extends Component {
         <SafeAreaView style={styles.container}>
           <View>
             <Text style={styles.txTitle}>Rekomendasi Saham Hari Ini</Text>
-            <FlatList
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              data={data}
-              renderItem={({item, index}) => (
-                <ListSaham item={item} index={index} />
-              )}
-              keyExtractor={item => item.id}
-            />
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+              <FlatList
+                horizontal
+                style={styles.list1}
+                showsHorizontalScrollIndicator={false}
+                data={data}
+                renderItem={({item, index}) => (
+                  <ListSaham item={item} index={index} />
+                )}
+                keyExtractor={item => item.id}
+              />
+            </ScrollView>
           </View>
+
           <View>
             <FlatList
               style={styles.list}
@@ -113,9 +119,11 @@ const styles = StyleSheet.create({
     marginTop: hp('2%'),
   },
   list: {
-    marginBottom: wp('44%'),
+    marginBottom: hp('22%'),
   },
-
+  list1: {
+    marginRight: wp('5%'),
+  },
   txTitle: {
     marginLeft: wp('5%'),
     marginRight: wp('5%'),
